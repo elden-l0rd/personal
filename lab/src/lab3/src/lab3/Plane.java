@@ -5,8 +5,7 @@ public class Plane {
     private int PlaneSeat[] = new PlaneSeat[12];
     private int numEmptySeat;
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        sc.close();
+        System.out.println("Hello World");
     }
 
     public void showNumEmptySeats()
@@ -17,5 +16,5 @@ public class Plane {
 
     public void assignSeat(int seatId, int cust_id)
 
-    public void unAssignSeat(int seatId)
-}
+    public void unAssignSeat(int seatId)*/
+} 
