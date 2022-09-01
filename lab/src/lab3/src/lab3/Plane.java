@@ -7,7 +7,7 @@ public class Plane {
 
     public Plane() {
         for (int i=0; i<12; i++) {
-            this.seat[i].seatId = i+1;   // initialise seatID number [1,12]
+            seat[i].seatId = i+1;   // initialise seatID number [1,12]
         }
     }
 
