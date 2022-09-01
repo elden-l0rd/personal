@@ -14,6 +14,9 @@ public class Plane {
 
     private static void sortSeats() { // SORT by ascending customerID
         lab3.PlaneSeat[] copy = new PlaneSeat[12];
+        for (int i=0; i<12; i++) {
+            copy[i] = new PlaneSeat();
+        }
         copy = seat;
         //insertion sort//
         for (int i=1; i<12; i++) {
