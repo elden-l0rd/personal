@@ -1,7 +1,7 @@
 package lab3;
 
 public class PlaneSeat {
-	int seatId;
+	private int seatId;
 	private boolean assigned=false;
 	private int customerId;
 	
@@ -33,4 +33,7 @@ public class PlaneSeat {
         assigned=false;
     }
 
+    public void setSeatID (int id) {
+        seatId = id;
+    }
 }

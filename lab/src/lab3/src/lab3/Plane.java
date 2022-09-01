@@ -1,17 +1,18 @@
 package lab3;
 
 public class Plane {
-    private lab3.PlaneSeat[] seat = new PlaneSeat[12];
+    private static lab3.PlaneSeat[] seat = new PlaneSeat[12];
     private int numEmptySeat=12;
     
 
     public Plane() {
-        for (int i=0; i<12; i++) {
-            seat[i].seatId = i+1;   // initialise seatID number [1,12]
+        for (int i=0; i<12; i++) { // initialise then set seatID number [1,12]
+            seat[i] = new PlaneSeat();   
+            seat[i].setSeatID(i+1);
         }
     }
 
-    private void sortSeats() { // SORT by ascending customerID
+    private static void sortSeats() { // SORT by ascending customerID
         lab3.PlaneSeat[] copy = new PlaneSeat[12];
         copy = seat;
         //insertion sort//
@@ -37,13 +38,14 @@ public class Plane {
     
     //methods
     public void showNumEmptySeats() {
-        System.out.println("There are "+numEmptySeat+" seats");
+        System.out.println("There are "+numEmptySeat+" empty seats\n");
     }
 
     public void showEmptySeats() {
+        System.out.println("The following seats are empty:");
         for (int i=0; i<12; i++) {
             if (seat[i].isOccupied()==false) {
-                System.out.println("SeatID "+(i+1));
+                System.out.println("SeatID "+ seat[i].getSeatID());
             }
         }
     }
@@ -60,22 +62,24 @@ public class Plane {
                     " assigned to CustomerID "+seat[i].getCustomerID());
                 }
             }
+            System.out.println();
         }
     }
     public void assignSeat(int seatId, int cust_id) {
-        if (seat[seatId].isOccupied()==true) {
-            System.out.println("Seat Assigned!");
+        if (seat[seatId-1].isOccupied()==true) {
+            System.out.println("Seat already assigned to a customer.\n");
             return;
         }
         else {
-            seat[seatId].assign(cust_id);
+            seat[seatId-1].assign(cust_id);
+            System.out.println("Seat Assigned!\n");
             numEmptySeat--;
         }
     }
 
     public void unAssignSeat(int seatId) {
-        seat[seatId].unAssign();
+        seat[seatId-1].unAssign();
         numEmptySeat++;
-        System.out.println("Seat Unassigned!");
+        System.out.println("Seat Unassigned!\n");
     }
 }
