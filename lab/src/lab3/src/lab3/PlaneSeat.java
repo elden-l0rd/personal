@@ -1,26 +1,36 @@
 package lab3;
-import java.util.*;
+
 public class PlaneSeat {
-	private static int seatId;
-	private boolean assigned;
-	private static int customerId;
-
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		PlaneSeat ob = new PlaneSeat();
-
-		
-		sc.close();
-	}
+	int seatId;
+	private boolean assigned=false;
+	private int customerId;
 	
-	public int getSeatID();
+    //methods
+	public int getSeatID() {
+        if (assigned==true)
+            return seatId;
+        else return 0;
+    }
 	
-	public int getCustomerID();
+	public int getCustomerID() {
+        if (assigned==true)
+            return customerId;
+        else return 0;
+    }
 	
-	public boolean isOccupied();
+	public boolean isOccupied() {
+        if (assigned==true)
+            return true;
+        else return false;
+    }
 	
-	public void assign(int cust_id);
+	public void assign(int cust_id) {
+        assigned=true;
+        customerId=cust_id;
+    }
 	
-	public void unAssign();
+	public void unAssign() {
+        assigned=false;
+    }
 
 }
