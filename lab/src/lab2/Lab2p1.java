@@ -2,11 +2,11 @@ package lab2;
 
 import java.util.*;
 public class Lab2p1 {
-	static Scanner sc = new Scanner(System.in);
+	//static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		int choice;
-		//Scanner sc = new Scanner(System.in);
+		int choice; int re=0;
+		Scanner sc = new Scanner(System.in);
 		do {
 			System.out.println("Perform the following methods:");
 			System.out.println("1: multiplication test");
@@ -39,21 +39,20 @@ public class Lab2p1 {
 				System.out.println(mm+" % "+nn+" = "+rr);
 				break;
 			case 4: /* add countDigits() call */
-				int i=0;
 				System.out.println("Enter a positive integer");
 				long number = sc.nextLong();
 				long numbe = number;
 				if (number<0)
 					System.out.println("n: "+number+"- Error inputt!!\n");
 				else {
-					int re;
 					while (number>0) {
-						re = countDigits((int)(number%10));
-						if (re==1)
-							i++;
+						if (countDigits((int)(number%10))==1) {
+							re++;
+						}
 						number = number/10;
 					}
-					System.out.println("n: "+numbe);
+					System.out.println("n: "+numbe+" - count = "+re);
+					re=0;
 				}
 				break;
 			case 5: /* add position() call */
@@ -61,14 +60,16 @@ public class Lab2p1 {
 				int num = sc.nextInt();
 				int digit = sc.nextInt();
 				int pos = position(num, digit);
-				System.out.printf("position = %d, digit: %d\n", pos, digit);
+				System.out.printf("position = %d\n", pos);
 				break;
 			case 6: /* add extractOddDigits() call */
 				System.out.println("Enter a number");
 				long newnum = sc.nextLong();
-				if (newnum<0)
-					System.out.println("oddDigits = Error input!!");
-				System.out.printf("oddDigits = ", extractOddDigits(newnum));
+				if (newnum<0) {
+					System.out.println("oddDigits = Error input!!\n");
+					break;
+				}
+				else extractOddDigits(newnum);
 				break;
 			case 7:
 				System.out.println("Program terminating....");
@@ -80,7 +81,7 @@ public class Lab2p1 {
 	
 	/* add method code here */
 	public static void mulTest() {
-		//Scanner sc = new Scanner(System.in);
+		Scanner scM = new Scanner(System.in);
 		Random rand = new Random();
 		int correct=5; int u;
 		int a; int b;
@@ -88,11 +89,12 @@ public class Lab2p1 {
 			a = rand.nextInt(20); b = rand.nextInt(20);
 			int ans = a*b;
 			System.out.printf("How much is %d times %d?\n", a,b);
-			u = sc.nextInt();
+			u = scM.nextInt();
 			if (u!=ans)
 				correct--;
 		}
 		System.out.printf("%d answers out of 5 are correct.\n", correct);
+		//scM.close();
 	}
 	
 	public static int divide(int m, int n) {
@@ -123,7 +125,7 @@ public class Lab2p1 {
 	}
 	
 	public static int countDigits(int n) {
-		if (Character.isDigit(n))
+		if (n==(int)n)
 			return 1;
 		else
 			return 0;
@@ -131,37 +133,40 @@ public class Lab2p1 {
 	
 	public static int position(int n, int digit) {
 		String temp = Integer.toString(n);
-		int[] arr = new int[temp.length()];
-		for (int i=0; i<temp.length(); i++) {
-			arr[i] = temp.charAt(i);
+		String d = Integer.toString(digit);
+		int count=0;
+		for (int i=temp.length()-1; i>=0; i--) {
+			if (temp.charAt(i)==d.charAt(0)) //String.valueOf()
+				return count+1;
+			count++;
 		}
-		int t=0;
-		for (int i=0; i<temp.length(); i++) {
-			if (arr[i]==digit)
-				t=i;
-		}
-		if (t==99)
-			return -1; // it's returning this all the time;
-		else
-			return t+1;
+		return -1;
 	}
 	
 	public static long extractOddDigits(long n) {
-		long[] arr = new long[10];
-		int i=0;
-		while (n>0) {
-			arr[i] = n%10;
-			n/=10;
-			i++;
+		if (n%2==0) {
+			System.out.println("oddDigits = -1\n");
+			return -1;
 		}
-		long str=0;
-		int k=0;
-		for (int j=0; j<i; j++) {
-			if (arr[j]/2 != 0) {
-				str += (arr[j]*(Math.pow(10,k++)));
+		String a = Long.toString(n);
+		long[] arr = new long[a.length()];
+		int j = a.length();
+		for (int k=0; k<j; k++) {
+			arr[k]=0;
+		}
+		for (int i=a.length()-1; i>=0 && j>=0; i--) {
+			if (n%2==1) {
+				arr[j-1]=n%10;
+				j--;
 			}
+			n=n/10;
 		}
-		return str;
+		for (int i=0; i<a.length(); i++) {
+			if (arr[i]!=0)
+				System.out.print(arr[i]);
+		}
+		System.out.println();
+		return 0;
 	}
-	
+
 }
