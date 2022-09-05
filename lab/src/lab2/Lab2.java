@@ -144,10 +144,7 @@ public class Lab2 {
 	}
 	
 	public static long extractOddDigits(long n) {
-		if (n%2==0) {
-			System.out.println("oddDigits = -1\n");
-			return -1;
-		}
+		int count=0;
 		String a = Long.toString(n);
 		long[] arr = new long[a.length()];
 		int j = a.length();
@@ -159,7 +156,14 @@ public class Lab2 {
 				arr[j-1]=n%10;
 				j--;
 			}
+			else {
+				count++;
+			}
 			n=n/10;
+		}
+		if (count==a.length()) {
+			System.out.println("oddDigits = -1\n");
+			return -1;
 		}
 		for (int i=0; i<a.length(); i++) {
 			if (arr[i]!=0)
