@@ -1,7 +1,7 @@
 package lab2;
 
 import java.util.*;
-public class Lab2p1 {
+public class Lab2 {
 	//static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
