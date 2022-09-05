@@ -4,8 +4,8 @@ public class sorting {
 
     public void InsertionSort(int slot[], int n) {
         for (int i=1; i<n; i++) {
-            for (int j=1; j>0; j--) {
-                if (slot[j] < slot[j-2])
+            for (int j=i; j>0; j--) {
+                if (slot[j] < slot[j-1])
                     slot[j] = slot[j]^slot[j-1]^(slot[j-1]=slot[j]); //swap
                 else break;
             }
