@@ -2,26 +2,26 @@ package lab3;
 
 public class PlaneSeat {
 	private int seatId;
-	private boolean assigned=false;
+	private boolean assigned;
 	private int customerId;
 	
     //methods
+    public PlaneSeat(int id) {
+        seatId=id;
+        assigned=false;
+        customerId=0;
+    }
+
 	public int getSeatID() {
-        if (assigned==true)
-            return seatId;
-        else return 0;
+        return seatId;
     }
 	
 	public int getCustomerID() {
-        if (assigned==true)
-            return customerId;
-        else return 0;
+        return customerId;
     }
 	
 	public boolean isOccupied() {
-        if (assigned==true)
-            return true;
-        else return false;
+        return assigned;
     }
 	
 	public void assign(int cust_id) {
@@ -31,9 +31,5 @@ public class PlaneSeat {
 	
 	public void unAssign() {
         assigned=false;
-    }
-
-    public void setSeatID (int id) {
-        seatId = id;
     }
 }
