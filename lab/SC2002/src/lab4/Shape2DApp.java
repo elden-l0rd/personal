@@ -20,7 +20,7 @@ public class Shape2DApp {
                                 "2. Triangle\n"+
                                 "3. Rectangle\n"+
                                 "4. Square\n");
-                                
+
             choice=sc.nextInt();
 
             switch(choice) {
@@ -49,6 +49,10 @@ public class Shape2DApp {
                     l=sc.nextDouble();
                     list[i] = new Square(l);
                     break;
+                
+                default:
+                    System.out.println("Invalid value, please retry");
+                    i--;
             }
         }
 

@@ -8,6 +8,8 @@ public class Rectangle extends Shape {
         this.length=l;
         this.breadth=b;
     }
+    public Rectangle() {
+    }
 
     @Override
     public double area() {
