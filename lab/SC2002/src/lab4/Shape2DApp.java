@@ -19,7 +19,7 @@ public class Shape2DApp {
                                 "1. Circle\n"+
                                 "2. Triangle\n"+
                                 "3. Rectangle\n"+
-                                "4. Square\n");
+                                "4. Square");
 
             choice=sc.nextInt();
 

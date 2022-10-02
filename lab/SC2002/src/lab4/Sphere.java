@@ -8,7 +8,7 @@ public class Sphere extends Circle {
 
     @Override
     public double area() {
-        return 2*super.area();
+        return 4.0*pi*Math.pow(getRadius(),2);
     }
 
     public double vol() {

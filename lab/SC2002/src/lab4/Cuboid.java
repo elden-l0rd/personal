@@ -9,7 +9,6 @@ public class Cuboid extends Rectangle{
     }
 
     public Cuboid(double h) {
-        this();
         this.height=h;
     }
 
@@ -21,7 +20,7 @@ public class Cuboid extends Rectangle{
         double x = super.getLength()*height;
         double y = super.getBreadth()*super.getLength();
         double z = super.getBreadth()*height;
-        return (2*x)+(2*y)+(2*z);
+        return 2*(x+y+z);
     }
 
     public double vol() {

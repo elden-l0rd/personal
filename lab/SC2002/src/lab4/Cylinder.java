@@ -12,8 +12,8 @@ public class Cylinder extends Cuboid {
 
     @Override
     public double area() {
-        return 2.0*pi*this.radius*super.getHeight()+
-                2.0*pi*Math.pow(this.radius, 2);
+        return pi*this.radius*super.getHeight()+
+                pi*Math.pow(this.radius, 2);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Shape3DApp {
                                 "2. Cuboid\n"+
                                 "3. Pyramid\n"+
                                 "4. Cone\n"+
-                                "5. Cylinder\n");
+                                "5. Cylinder");
             choice=sc.nextInt();
             switch(choice) {
                 case 1:
@@ -64,30 +64,31 @@ public class Shape3DApp {
             //end switch
         }
 
-        double area=0;
+        float area=0;
         for (int i=0; i<noOfShapes; i++) {
-            if (list3d[i] instanceof Square) {
-                Square sq = (Square)list3d[i];
-                area+=sq.area();
+            if (list3d[i] instanceof Circle) {
+                Circle cr = (Circle)list3d[i];
+                area+=(float)cr.area();
             }
             if (list3d[i] instanceof Cuboid) {
                 Cuboid cb = (Cuboid)list3d[i];
-                area+=cb.area();
+                area+=(float)cb.area();
             }
             if (list3d[i] instanceof Pyramid) {
                 Pyramid py = (Pyramid)list3d[i];
-                area+=py.area();
+                area+=(float)py.area();
             }
             if (list3d[i] instanceof Cone) {
                 Cone cn = (Cone)list3d[i];
-                area+=cn.area();
+                area+=(float)cn.area();
             }
             if (list3d[i] instanceof Cylinder) {
                 Cylinder cy = (Cylinder)list3d[i];
-                area+=cy.area();
+                area+=(float)cy.area();
             }
+            System.out.println("repeated\n");
         }
-        System.out.println("Total area is "+area);
+        System.out.println("Total area is "+(double)area);
 
         sc.close();
     }

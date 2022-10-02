@@ -15,7 +15,7 @@ public class Cone extends Pyramid {
     public double area() {
         double x = Math.sqrt(Math.pow(super.getHeight(), 2)+
                             Math.pow(super.getLength(), 2));
-        return pi*getLength()*(super.getLength()+x);
+        return (pi*getLength()*(super.getLength()+x))/2.0;
     }
 
     @Override

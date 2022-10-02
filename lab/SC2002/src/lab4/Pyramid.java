@@ -9,9 +9,9 @@ public class Pyramid extends Square{
     }
 
     @Override
-    public double area() {
-        return (float)super.area()+
-                (float)2.0*super.getLength()*(float)Math.sqrt((float)Math.pow(super.getLength()/2.0, 2)+(float)Math.pow(height/2.0, 2));
+    public double area() { //surface area!
+        return (float)super.area()+((float)Math.sqrt(Math.pow(getLength()/2.0, 2)+Math.pow(getHeight(), 2))*getLength()
+                +(float)getLength()*Math.sqrt(Math.pow(getLength()/2.0, 2)+Math.pow(getHeight(), 2)));
     }
 
     public double vol() {
