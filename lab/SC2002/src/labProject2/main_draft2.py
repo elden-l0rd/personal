@@ -3,15 +3,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
 import heapq
-import os
 import random
-import numpy as np
 from timeit import default_timer as timer
 import networkx as nx
 from collections import defaultdict
-from queue import PriorityQueue
 
-from main import minDistance, minWeight
 
 def minWeight(w, SS,vertices):
     min=sys.maxsize
@@ -36,17 +32,29 @@ def dijkstraMatrix(g,src, vertices):
         for j in range(0,vertices):
             if (not S[j] and g1[u][j] and d[u]!=sys.maxsize and d[u]+g1[u][j]<d[j]):
                 d[j] = d[u]+g1[u][j]
+    return
 
 
 def dijkstraList(g, src):
     # stored arr of adjLists && minimising heap for priority queue
     list = convert_to_list(g)
-    d = {i:int('int') for i in range(len(list))}
+    d={}
+    pq=[]
+    for v in list:
+        d[v] = sys.maxsize
     d[src]=0
-    pq = PriorityQueue()
-    pq.put((0, src))
 
-    # TODO: implement heapify()
+    for v in list:
+        heapq.heappush(pq, (v, d[v]))
+    while len(pq)>0:
+        curr, currW = heapq.heappop(pq)
+        for neighbour in list[curr]:
+            weight=list[curr][neighbour]
+            dist = currW+weight
+            if dist<d[neighbour]:
+                d[neighbour]=dist
+                heapq.heappush(pq, (neighbour, dist))
+    return
 
 
 ## Generate random GRAPH ##
@@ -67,14 +75,6 @@ def convert_to_list(graph):
                        if graph[i][j]<sys.maxsize:
                            L[i].append(j)
     return L
-"""def convert_to_list(g,vertices):
-    #initisliase list
-    L = [[0 for i in range(vertices)] for j in range(vertices)]
-    for i in range(vertices):
-        for j in range(vertices):
-            if ((g[i][j]!= (0 or sys.maxsize)) and g[i][j]==g[[j][i]]):
-                L[i][j].append(j)
-    return L"""
 
 def main():
     cputimeMatrix = []
@@ -107,6 +107,7 @@ def main():
     plt.ylabel("graphDensity, D")
     plt.title("Comparing graph density and running time")
     plt.show()
+
 
 if __name__ == "__main__":
     main()
