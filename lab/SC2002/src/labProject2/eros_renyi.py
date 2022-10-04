@@ -1,12 +1,17 @@
+from lib2to3.pytree import convert
 import random
 from networkx.algorithms import average_clustering
 import networkx as nx
 from networkx.algorithms import degree_centrality, clustering
 from networkx.algorithms import diameter
 import matplotlib.pyplot as plt
-import math 
+import math
+import numpy as np
 import networkx as nx
-from networkx.generators.classic import empty_graph, path_graph, complete_graph 
+from networkx.generators.classic import empty_graph, path_graph, complete_graph
+import scipy
+from collections import defaultdict
+import collections
  #------------------------------------------------------------------------- 
     #  Erdos Renyi Random Graph
  #-------------------------------------------------------------------------
@@ -51,11 +56,20 @@ def fast_gnp_random_graph(n, p, seed=None):
            if v<n: 
                G.add_edge(v,w) 
        return G
+
+def convert_to_list(graph):
+    L = defaultdict(list)
+    for i in range(len(graph)):
+        for j in range(len(graph[i])):
+                       if graph[i][j]!=0:
+                           L[i].append(j)
+    return L
+
 # accepting input from the user
 nodes=int(input("please input the number of the nodes   "))
 probability=float (input("please input the probability   "))
 #drawing the graph of erdos
-Erdős=fast_gnp_random_graph(nodes,probability)
+Erdős=nx.gnp_random_graph(nodes,probability)
 # Reading input data from oregon2_010331.txt file
 internet_graph=nx.read_edgelist("oregon2_010331.txt")
 #print(type(G))
@@ -99,5 +113,9 @@ print ("Transitivity of internet is: ",nx.transitivity(internet_graph), "\nTrans
 #plt.show()
 
 #Drowing Internet_graph with 10900 nodes and 31180 edges
-nx.draw(internet_graph, with_labels=True)
+nx.draw(Erdős, with_labels=True)
 plt.show()
+matrix_print = scipy.sparse.csr_matrix.toarray(nx.adjacency_matrix(Erdős))
+print(matrix_print)
+print(convert_to_list(matrix_print))
+print(nx.density(Erdős))
