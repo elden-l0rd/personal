@@ -31,4 +31,20 @@ sns.heatmap(means,
             linewidth=2,
             square=True)
 
-plt.show()
+#plt.show()
+
+vertices = 5
+list = [False]*5
+list[1]=2
+print((list))
+
+def main():
+    pq=[]
+    while pq:
+        g = [[1,0],[2,3]]
+        print(g)
+    print("end")
+
+if __name__ == "__main__":
+    main()
+
