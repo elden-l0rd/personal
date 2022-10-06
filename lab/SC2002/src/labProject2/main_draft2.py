@@ -146,11 +146,12 @@ def main():
 
 def testmain():
     g = generateMatrix(10, 0.92)
-    g1 = scp.csr_matrix.toarray(nx.adjacency_matrix(g))
+    g1 = convert_to_list(g,10)
     print(g1)
 
 
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    testmain()
