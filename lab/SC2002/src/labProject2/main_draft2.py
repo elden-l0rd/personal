@@ -1,3 +1,4 @@
+from re import L
 from matplotlib import colors
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -21,26 +22,28 @@ def minWeight(w, SS,vertices):
     return min_index
 
 def dijkstraMatrix(g, src, vertices):
-    g1 = scp.csr_matrix(nx.adjacency_matrix(g)) #converts into 2D matrix
-    d=[v for v in range(vertices)]
-    S=[v for v in range(vertices)]
-
-    for i in range(vertices):
-        d[i] = sys.maxsize
-        S[i] = False
+    g1 = scp.csr_matrix.toarray(nx.adjacency_matrix(g)) #converts into 2D matrix
+    d=[sys.maxsize]*vertices
+    S=[False]*vertices
+    pq = []
+    pq.append(src)
     d[src]=0
-    for i in range(vertices):
-        u = minWeight(d,S, vertices)
+    while (pq):
+        u = minWeight(d,S,vertices) # return index of smallest node
+        pq.remove(u)
         S[u]=True
         for j in range(vertices):
-            if (S[j]==False and g1[u][j] and d[u]!=sys.maxsize and d[u]+g1[u][j]<d[j]):
+            if (S[j]==False and g1[u][j] and d[u]+g1[u][j]<d[j]):
+                if j not in pq:
+                    pq.append(j)
+                #pq.pop(j)
                 d[j] = d[u]+g1[u][j]
     return
 
 
-def dijkstraList(g, src):
+def dijkstraList(g, src, vertices):
     # stored arr of adjLists && minimising heap for priority queue
-    list = convert_to_list(g)
+    list = convert_to_list(g, vertices)
     d={}
     pq=[]
     for v in list:
@@ -48,21 +51,22 @@ def dijkstraList(g, src):
     d[src]=0
 
     for v in list:
-        heapq.heappush(pq, (v, d[v]))
-    heapq.heapify(pq)
-    while len(pq)>0:
-        curr, currW = heapq.heappop(pq)
+        heapq.heappush(pq, [v, d[v]])
+
+    while (len(pq)):
+        curr = heapq.heappop(pq)[1]
+        currW = heapq.heappop(pq)[1]
         for neighbour in list[curr]:
             weight=list[curr][neighbour]
             dist = currW+weight
             if dist<d[neighbour]:
                 d[neighbour]=dist
-                heapq.heappush(pq, (neighbour, dist))
+                heapq.heappush(pq, [neighbour, dist])
+        heapq.heapify(pq)
     return
 
 
 ## Generate random GRAPH ##
-# generateMatrix()
 def generateMatrix(vertices, prob):
     # p affects graph density
     g = nx.erdos_renyi_graph(vertices,prob,seed=False)
@@ -74,11 +78,12 @@ def generateMatrix(vertices, prob):
     
 
 # matrix_to_list()
-def convert_to_list(graph):
+def convert_to_list(graph, vertices):
+    tmp = scp.csr_matrix.toarray(nx.adjacency_matrix(graph))
     L = defaultdict(list)
-    for i in range(len(graph)):
-        for j in range(len(graph[i])):
-                       if graph[i][j]!=0:
+    for i in range(vertices):
+        for j in range(vertices):
+                       if tmp[i][j]!=0:
                            L[i].append(j)
     return L
 
@@ -89,10 +94,14 @@ def main():
     d = []
     ver = []
     for i in range(100): # number of test cases
-        vertices = random.randint(1,100) # number of vertices
+        vertices = random.randint(2,100) # number of vertices
         ver.append(vertices)
         # generate a graph -> run with dijkstraMatrix() and dijkstraList()
-        for prob in range(0.3, 0.9): #value of p
+        for prob in np.arange(0.4,0.95,0.1): #value of p
+            if (prob==(0 or 1)):    # probability must be nonzero and <1
+                prob-=0.2
+                continue
+
             g = generateMatrix(vertices, prob)
             d.append(nx.density(g))
             tmp=.0
@@ -133,6 +142,13 @@ def main():
                 square=True)
 
     plt.show()
+
+
+def testmain():
+    g = generateMatrix(10, 0.92)
+    g1 = scp.csr_matrix.toarray(nx.adjacency_matrix(g))
+    print(g1)
+
 
 
 
