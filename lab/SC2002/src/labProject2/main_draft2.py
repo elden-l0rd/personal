@@ -1,4 +1,3 @@
-from this import d
 from matplotlib import colors
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -6,10 +5,10 @@ import sys
 import heapq
 import random
 import numpy as np
-import pandas as pd
 import networkx as nx
 from collections import defaultdict
 from scipy import sparse as scp
+from scipy import stats
 from timeit import default_timer as timer
 
 
@@ -50,6 +49,7 @@ def dijkstraList(g, src):
 
     for v in list:
         heapq.heappush(pq, (v, d[v]))
+    heapq.heapify(pq)
     while len(pq)>0:
         curr, currW = heapq.heappop(pq)
         for neighbour in list[curr]:
@@ -63,9 +63,9 @@ def dijkstraList(g, src):
 
 ## Generate random GRAPH ##
 # generateMatrix()
-def generateMatrix(vertices):
-    p = 0.35 # affects graph density
-    g = nx.erdos_renyi_graph(vertices,p,seed=False)
+def generateMatrix(vertices, prob):
+    # p affects graph density
+    g = nx.erdos_renyi_graph(vertices,prob,seed=False)
     for (u,v) in g.edges():
         g.edges[u,v]['weight'] = random.randint(1,50) #adding value of weights
     #nx.draw(g, with_labels=True)
@@ -87,40 +87,53 @@ def main():
     cputimeList = []
     cpu = []
     d = []
+    ver = []
     for i in range(100): # number of test cases
         vertices = random.randint(1,100) # number of vertices
+        ver.append(vertices)
         # generate a graph -> run with dijkstraMatrix() and dijkstraList()
-        g = generateMatrix(vertices)
-        d.append(nx.density(g))
-        tmp=.0
-        for i in range(5): # repeat expt 5times -> take ave
-            start = timer()
-            dijkstraMatrix(g,0, vertices)
-            tmp+=timer()-start
-        cputimeMatrix.append(tmp/5.0)
-        tmp=.0
-        for i in range(5):
-            start = timer()
-            dijkstraList(g,0)
-            tmp+=timer()-start
-        cputimeList.append(tmp/5.0)
+        for prob in range(0.3, 0.9): #value of p
+            g = generateMatrix(vertices, prob)
+            d.append(nx.density(g))
+            tmp=.0
+            for expt in range(5): #repeat experiment 5 times and take ave
+                start = timer()
+                dijkstraMatrix(g, 0, vertices)
+                tmp+=timer()-start
+            cputimeMatrix.append(tmp/5.0)
+            tmp=.0
+            for expt in range(5):
+                start = timer()
+                dijkstraList(g, 0, vertices)
+                tmp+=timer()-start
+            cputimeList.append(tmp/5.0)
 
+    # end of data collection
     for i in range(100):
-        cpu[i] = cputimeMatrix[i]-cputimeList[i]
+        cpu[i] = cputimeMatrix[i] - cputimeList[i]
+
+    x = np.array(ver)
     y = np.array(d)
     z = np.array(cpu)
-    df = pd.DataFrame({"y":y, "z":z})
-    df.to_csv("data.csv", index=False)
 
-"""
-    # heatmap ==> cpuMatrix-cpuList vs graphDensity vs numberVertices #
-    divnorm  = colors.TwoSlopeNorm(vcenter=0.)
-    df2 = pd.read_csv(??)
-    ax = sns.heatmap(df2, linewidths=0, cmap='seismic', norm=divnorm)
-    plt.xlabel("no. of Vertices, |V|")
+    divnorm = colors.TwoSlopeNorm(vcentre=0.)
+    means = stats.binned_statistic_2d(x,
+                                  y,
+                                  values=z)[0]
+    plt.figure(figsize=(10,8))
+    plt.xlabel("no. of vertices, |V|")
     plt.ylabel("graphDensity, D")
-    plt.title("Comparing graph density and running time")
-    plt.show()"""
+    plt.title("Comparing graphDensity with running time")
+    sns.heatmap(means,
+                cmap="seismic",
+                annot=True,
+                annot_kws={"fontsize":16},
+                cbar=True,
+                linewidth=2,
+                square=True)
+
+    plt.show()
+
 
 
 if __name__ == "__main__":
