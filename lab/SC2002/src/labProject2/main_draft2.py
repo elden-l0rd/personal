@@ -44,26 +44,7 @@ def dijkstraList(g, src, vertices):
     list = convert_to_list(g, vertices)
     d=[sys.maxsize]*vertices
     pq=[]
-    """for v in list:
-        d[v] = sys.maxsize"""
     d[src]=0
-    """S=set() #visited
-    pq.append((0,src))
-
-    while (pq):
-        cur, curDist = heapq.heappop(pq)
-        if cur in S: continue
-        S.add(cur)
-
-        for neighbour in list[cur]:
-            if neighbour in S:
-                continue
-            dist = curDist + list[cur][neighbour]
-            if d[neighbour]>dist:
-                d[neighbour]=dist
-                heapq.heappush(pq, (dist, neighbour))
-    if len(S)!=len(d): return -1
-    return 1 """
 
     for v in list:
         heapq.heappush(pq, (v, d[v]))
