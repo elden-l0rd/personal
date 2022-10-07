@@ -45,6 +45,13 @@ def main():
         print(g)
     print("end")
 
+def main1():
+    d={}
+    for i in range(5):
+        d[i]=i*2
+    
+    print(d.get(2))
+
 if __name__ == "__main__":
-    main()
+    main1()
 
