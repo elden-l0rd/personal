@@ -11,4 +11,4 @@
 190,"child8, child9,main",child7,Timer interrupt reset to 230,Thread 7 Completed,child7->child8
 200,"child9,main",child8,Timer interrupt reset to 240,Thread 8 Completed,child8->child9
 210,main,child9,Timer interrupt reset to 250,Thread 9 Completed,child9->main
-220,main,,,Thread 0 Completed,
+220,main,,Timer interrupt reset to 260,Thread 0 Completed,
