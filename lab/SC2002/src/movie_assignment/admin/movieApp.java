@@ -18,48 +18,85 @@ public class movieApp {
         int choice;
         cinema cinema = new cinema();
 
-        System.out.println("(1) Show movie list\n"+
+        System.out.println("(1) Show all movies\n"+
                             "(2) Show NOW_SHOWING movies\n"+
-                            "(3) Edit movie listing\n"+
+                            "(3) Show COMING_SOON movies\n"+
+                            "(4) Edit movie listing\n"+
                             "(0) Close current application\n");
         do {
             System.out.println("Enter the number of choice: ");
             choice = sc.nextInt();
             switch(choice) {
                 case 1:
-                    //Show movie list
+                    //show all movies
                     break;
                 case 2:
-                    //Show NOW-SHOWING movies
+                    //show NOW-SHOWING movies
+                    cinema.showMovies(1);
                     break;
                 case 3:
-                    //Edit movie listing
+                    //show COMING_SOON movies
+                    cinema.showMovies(2);
+                    break;
+                case 4:
+                    //edit movie listing
                     int a;
                     do{
-                        System.out.println("Choose desired function:\n"+
-                                            "(1) Create\n"+
-                                            "(2) Update\n"+
-                                            "(3) Remove\n"+
-                                            "(4) Quit editing.");
+                        System.out.println("    Choose desired function:\n"+
+                                            "       (1) Create\n"+
+                                            "       (2) Update\n"+
+                                            "       (3) Remove\n"+
+                                            "       (4) Quit editing.");
                         a = sc.nextInt();
-                        switch(a) {
-                            case 1:
-                                //create
-                                break;
-                            case 2:
-                                //update
-                                break;
-                            case 3:
-                                //remove
-                                break;
-                            case 4:
-                                System.out.println("Returning to main application..");
-                                a=9999;
-                                break;
-                            default:
-                                System.out.println("Choice is invalid, try again.");
-                                break;
+
+                        if (a==4) {
+                            System.out.println("Returning to main application..");
+                            a=9999;
                         }
+                        else if (a>0 && a<4) {
+                            System.out.println("Enter name of movie");
+                            String name = sc.nextLine();
+                            if (a==1) {
+                                System.out.println("Enter movie status");
+                                cinema.editMovie(a, name, sc.nextInt());
+                            }
+                            if (a==2) {
+                                System.out.println("        What to update?\n"+
+                                                    "           (1) Name\n"+
+                                                    "           (2) Reviews\n"+
+                                                    "           (3) Ratings\n"+
+                                                    "           (4) Hall number\n"+
+                                                    "           (5) Status");
+                                switch(sc.nextInt()) {
+                                    case 1:
+                                        System.out.println("Enter new name:");
+                                        // pass in new name of movie
+                                        break;
+                                    case 2:
+                                        //reviews
+                                        break;
+                                    case 3:
+                                        //ratings
+                                        break;
+                                    case 4:
+                                        System.out.println("Enter new hall number:");
+                                        //pass in new hall number
+                                         break;
+                                    case 5:
+                                        System.out.println("Enter new status:");
+                                        //pass in new status
+                                        break;
+                                }
+                            }
+                            if (a==3) {
+                                //
+                            }
+                        }
+
+                        else {
+                            System.out.println("Invalid choice, try again.");
+                        }
+
                     }while(a!=9999);
                     break;
                 
@@ -67,7 +104,7 @@ public class movieApp {
                     System.out.println("System shutting down...");
                     return;
                 default:
-                    System.out.println("Choice is invalid, try again.");
+                    System.out.println("Invalid choice, try again.");
                     break;
             }
 
