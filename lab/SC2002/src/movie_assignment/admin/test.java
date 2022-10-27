@@ -24,11 +24,11 @@ public class test {
                     //Edit movie listing
                     int a;
                     do{
-                        System.out.println("Choose desired function:\n"+
-                                            "(1) Create\n"+
-                                            "(2) Update\n"+
-                                            "(3) Remove\n"+
-                                            "(4) Quit editing.");
+                        System.out.println("    Choose desired function:\n"+
+                                            "       (1) Create\n"+
+                                            "       (2) Update\n"+
+                                            "       (3) Remove\n"+
+                                            "       (4) Quit editing.");
                         a = sc.nextInt();
                         switch(a) {
                             case 1:
