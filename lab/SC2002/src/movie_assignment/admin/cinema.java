@@ -13,7 +13,7 @@ public class cinema {
     }
 
     //methods
-    //sort timings in chrono order
+    //timings for each movie
     public void sortTimings(int[] arr) {
         //insertion sort
         for (int i=1; i<5; i++) {
@@ -23,6 +23,23 @@ public class cinema {
                 }
                 else break;
              }
+        }
+    }
+
+    public void sortRatings() { 
+        movie[] tmp = new movie[16]; //tmp[15] is intermediary
+        for (int i=0; i<totalMovies; i++) {
+            tmp[i] = movieCata[i];
+        }
+
+        for (int i=1; i<totalMovies; i++) {
+            for (int j=i; j>0; j--) {
+                if (tmp[j].getRatings() < tmp[j-1].getRatings()) {
+                    tmp[15] = tmp[j-1];
+                    tmp[j-1]=tmp[j];
+                    tmp[j]=tmp[15];
+                }
+            }
         }
     }
 
@@ -61,8 +78,8 @@ public class cinema {
             case 1: //create
                 for (int i=0; i<totalMovies; i++) {
                     if (movieCata[i].getStatus()==0) {
-                        movieCata[i].setStatus(status);
-                        movieCata[i].setName(name);
+                        movieCata[i].assignStatus(status);
+                        movieCata[i].assignName(name);
                         break;
                     }
                 }
