@@ -1,14 +1,13 @@
 package movie_assignment.admin;
 
-public class movie {
-    private String name;
+public class movie extends video {
     private String[] reviews; //store in array of (strings)reviews
     private int ratings;
     private int hall;
     private int status;
 
     public movie(String n, String[] re, int rat, int s) {
-        this.name = n;
+        super(n);
         this.reviews = re;
         this.ratings = rat;
         this.status = s;
@@ -16,31 +15,37 @@ public class movie {
 
     //for new movies w/o ratings and reviews
     public movie(String n, int s) {
-        this.name = n;
+        super(n);
         this.status = s;
     }
 
-    public movie(int s) {
-        this.status = s;
-        this.hall = 0;
+    @Override
+    public void assignName(String n) {
+        super.assignName(n);
     }
 
-    public void setName(String n) {
-        this.name = n;
-    }
+    @Override
     public String getName() {
-        return this.name;
+        return super.getName();
+    }
+
+    public void assignReviews() {
+        //
     }
 
     public String[] getReviews() {
-        return reviews;
+        return this.reviews;
+    }
+
+    public void assignRatings() {
+        //
     }
 
     public int getRatings() {
         return this.ratings;
     }
 
-    public void setHallNumber(int num) {
+    public void assignHallNumber(int num) {
         this.hall = num;
     }
 
@@ -48,16 +53,17 @@ public class movie {
         return this.hall;
     }
 
-    public void setStatus(int num) {
+    public void assignStatus(int num) {
+
+        // 0 -> empty, no movie stored
+        // 1 -> NOW_SHOWING
+        // 2 -> coming Soon
+
         this.status = num;
     }
 
     public int getStatus() {
-        /*
-        0 -> empty, no movie stored
-        1 -> NOW_SHOWING
-        2 -> coming Soon
-        */
         return this.status;
     }
+
 }
