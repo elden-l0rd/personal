@@ -1,25 +1,25 @@
 package movie_assignment.admin;
+import java.util.*;
 
 public class movie extends video {
-    private String[] reviews;
-    private int ratings;
+    private ArrayList<String> reviews;
+    private double ratings;
+    private static int numOfRatings;
     private int hall;
     private int status;
-    private int price;
+    private double price;
     private String type;
 
-    public movie(String n, String d, String[] c, String[] re, int rat, int s, int p) {
-        super(n,d,c);
-        this.reviews = re;
-        this.ratings = rat;
-        this.status = s;
+    //first add name,director,cast,synopsis,status,price,type
+    //ratings initialised to 0
+    //hall,reviews to be added in future
+    public movie(String n, String d, String c, String syp, int s, double p, int t) {
+        super(n,d,c,syp);
         this.price=p;
-    }
-
-    //for new movies w/o ratings and reviews
-    public movie(String n, String d, String[] c, int s) {
-        super(n,d,c);
-        this.status = s;
+        this.status=s;
+        this.ratings=.0;
+        numOfRatings=0;
+        assignType(t);
     }
 
     @Override
@@ -32,20 +32,21 @@ public class movie extends video {
         return super.getName();
     }
 
-    public void assignReviews() {
-        //
+    public void addReviews(String r) {
+        this.reviews.add(r);
     }
 
-    public String[] getReviews() {
+    public ArrayList<String> getReviews() {
         return this.reviews;
     }
 
-    public void assignRatings() {
-        //
+    public void assignRatings(double rat) {
+        numOfRatings++;
+        this.ratings+=rat;
     }
 
-    public int getRatings() {
-        return this.ratings;
+    public void getRatings() {
+        System.out.printf("%.1f", this.ratings/numOfRatings);
     }
 
     public void assignHallNumber(int num) {
@@ -68,13 +69,26 @@ public class movie extends video {
 
     public int getStatus() {
         return this.status;
+        // switch(this.status) {
+        //     case 0:
+        //         return 0;
+        //     case 1:
+        //         System.out.println("Movie is in Preview!");
+        //         break;
+        //     case 2:
+        //         System.out.println("Now Showing!");
+        //         break;
+        //     case 3:
+        //         System.out.println("Coming Soon!");
+        //         break;
+        // }
     }
 
-    public void assignPrice(int p) {
+    public void assignPrice(double p) {
         this.price=p;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
