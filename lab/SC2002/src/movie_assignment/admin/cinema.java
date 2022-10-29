@@ -49,7 +49,7 @@ public class cinema {
         if (a==1) {
             System.out.println("NOW SHOWING:");
             for (int i=0; i<totalMovies; i++) {
-                if (movieCata[i].getStatus()==1) {
+                if (movieCata[i].getStatus()==1 || movieCata[i].getStatus()==2) {
                     checker=true;
                     System.out.println(movieCata[i].getName());
                 }
@@ -58,10 +58,10 @@ public class cinema {
                 System.out.println("No movies are showing cinemas.");
             }
         }
-        else { //a==2
+        else { //a==3
             System.out.println("COMING SOON:");
             for (int i=0; i<totalMovies; i++) {
-                if (movieCata[i].getStatus()==2) {
+                if (movieCata[i].getStatus()==3) {
                     checker=true;
                     System.out.println(movieCata[i].getName());
                 }
