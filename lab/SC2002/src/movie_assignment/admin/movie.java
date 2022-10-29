@@ -46,7 +46,7 @@ public class movie extends video {
     }
 
     public void getRatings() {
-        System.out.printf("%.1f", this.ratings/numOfRatings);
+        System.out.printf("%.1f\n", this.ratings/numOfRatings);
     }
 
     public void assignHallNumber(int num) {
@@ -69,19 +69,6 @@ public class movie extends video {
 
     public int getStatus() {
         return this.status;
-        // switch(this.status) {
-        //     case 0:
-        //         return 0;
-        //     case 1:
-        //         System.out.println("Movie is in Preview!");
-        //         break;
-        //     case 2:
-        //         System.out.println("Now Showing!");
-        //         break;
-        //     case 3:
-        //         System.out.println("Coming Soon!");
-        //         break;
-        // }
     }
 
     public void assignPrice(double p) {
@@ -113,6 +100,15 @@ public class movie extends video {
 
     public String getType() {
         return this.type;
+    }
+
+    public void removeMovie() {
+        this.status=0;
+        this.hall=0;
+        this.price=.0;
+        this.ratings=0;
+        this.reviews=null;
+        this.type=null;
     }
 
 }
