@@ -20,6 +20,8 @@ public class movie extends video {
         this.ratings=.0;
         numOfRatings=0;
         assignType(t);
+        this.hall=0;
+        this.reviews=null;
     }
 
     @Override
@@ -45,8 +47,9 @@ public class movie extends video {
         this.ratings+=rat;
     }
 
-    public void getRatings() {
+    public double getRatings() {
         System.out.printf("%.1f\n", this.ratings/numOfRatings);
+        return this.ratings/numOfRatings;
     }
 
     public void assignHallNumber(int num) {

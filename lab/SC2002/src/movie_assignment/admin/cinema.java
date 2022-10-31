@@ -90,10 +90,9 @@ public class cinema {
         int index = searchMovie(name);
         switch(option) {
             case 1: //create
-                for (int i=0; i<totalMovies; i++) {
-                    if (movieCata[i].getStatus()==0) {
-                        movieCata[i].assignStatus(status);
-                        movieCata[i].assignName(name);
+                for (int slot=0; slot<totalMovies; slot++) { //find empty movie[slot]
+                    if (movieCata[slot].getRatings()==0) {
+                        movieCata[slot].assignName(name);
                         break;
                     }
                 }
@@ -110,7 +109,6 @@ public class cinema {
                     case 3:
                         movieCata[index].assignPrice(newNum);
                 }
-
                 break;
             case 3: //remove
                 movieCata[index].removeMovie();

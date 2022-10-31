@@ -63,33 +63,45 @@ public class movieApp {
                             System.out.println("Enter name of movie");
                             String name = sc.nextLine();
                             if (a==1) {
-                                //alr got name
-                                //left director, cast, synopsis, status, price, type
-                                //initialise ratings to 0
+                                System.out.println("Enter director's name: \n"+
+                                                    "Enter cast: \n"+
+                                                    "Enter synopsis: \n"+
+                                                    "Enter status: \n"+
+                                                    "Enter movie type: \n"+
+                                                    "    (1) 3D\n"+
+                                                    "    (2) Blockbuster\n"+
+                                                    "    (3) Comedy\n"+
+                                                    "    (4) Horror\n"+
+                                                    "    (5) Exclusive");
+                                String dirName = sc.nextLine();
+                                String castName = sc.nextLine();
+                                String sypnosis = sc.nextLine();
+                                int statusCreate = sc.nextInt();
+                                int typeCreate = sc.nextInt();
                                 cinema.editMovie(a, name, choice, a);
 
                             }
                             if (a==2) {
                                 System.out.println("        What to update?\n"+
                                                     "           (1) Hall number\n"+
-                                                    "           (2) Status"+
+                                                    "           (2) Status\n"+
                                                     "           (3) Price");
-                                int updatenum = sc.nextInt();
-                                switch(updatenum) {
+                                int numUpdate = sc.nextInt();
+                                switch(numUpdate) {
                                     case 1:
                                         System.out.println("Enter new hall number:");
                                         int changeHall = sc.nextInt();
-                                        cinema.editMovie(a, name, updatenum, (double)changeHall);
+                                        cinema.editMovie(a, name, numUpdate, (double)changeHall);
                                         break;
                                     case 2:
                                         System.out.println("Enter new status:");
                                         int changeStat = sc.nextInt();
-                                        cinema.editMovie(a, name, updatenum, (double)changeStat);
+                                        cinema.editMovie(a, name, numUpdate, (double)changeStat);
                                         break;
                                     case 3:
                                         System.out.println("Enter new price:");
                                         double changePr = sc.nextDouble();
-                                        cinema.editMovie(a, name, updatenum, changePr);
+                                        cinema.editMovie(a, name, numUpdate, changePr);
                                         break;
                                 }
                             }
