@@ -129,14 +129,26 @@ public class cinema {
     }
 
     public void createMovie(String name, String dirname, String castName, String syp,
-                            int P, int S, int T) {
-        int index = searchMovie(name);
+                                                                double P, int S, int T)
+    {
+        int index=0, i;
+        for (i=0; i<totalMovies; i++) {
+            if (movieCata[i].getName()==null) {
+                index=i;
+                break;
+            }
+        }
+        if (i==totalMovies) {
+            System.out.println("Cinema is full, cannot add any new movies");
+            return;
+        }
         movieCata[index].assignAbsClass(name, dirname, castName, syp);
         movieCata[index].assignPrice(P);
         movieCata[index].assignStatus(S);
         movieCata[index].assignType(T);
         movieCata[index].assignHallNumber(0);
         movieCata[index].assignRatings(0);
+        System.out.println("Movie added!");
     }
 
     //search for a movie index

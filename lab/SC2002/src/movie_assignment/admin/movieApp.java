@@ -85,7 +85,7 @@ public class movieApp {
                                 String dirName = sc.nextLine();
                                 String castName = sc.nextLine();
                                 String sypnosis = sc.nextLine();
-                                int Price = sc.nextInt();
+                                double Price = sc.nextDouble();
                                 int statusCreate = sc.nextInt();
                                 int typeCreate = sc.nextInt();
                                 cinema.createMovie(name, dirName, castName, sypnosis,
