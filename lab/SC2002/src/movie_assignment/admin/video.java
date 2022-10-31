@@ -10,6 +10,7 @@ public class video {
     public video(String n, String d, String c, String des) {
         this.name=n;
         this.director=d;
+        this.cast = new ArrayList<String>();
         this.cast.add(c);
         this.description=des;
     }
@@ -26,6 +27,10 @@ public class video {
         return this.director;
     }
 
+    public void assignDir(String dir) {
+        this.director=dir;
+    }
+
     public void addCast(String c) {
         this.cast.add(c);
     }
@@ -33,8 +38,13 @@ public class video {
     public ArrayList<String> getCast() {
         return this.cast;
     }
+
+    public void assignSypnosis(String syp) {
+        this.description=syp;
+    }
     
     public String getSynopsis() {
         return this.description;
     }
+
 }

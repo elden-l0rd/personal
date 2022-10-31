@@ -1,8 +1,9 @@
 /*
+ * video -> movie -> cinema & movieApp
  * set total number of cinemas available = 10
  * set total number of movies available for viewing = 15
  * assign each movie to a fixed cinema Hall
- * set cinema opening hours from 0900-0100
+ * set cinema opening hours from 0900-0000 (for showtimes) (movie must end by 0000 !!)
  * set number of showtimes a day <= 5 because some shows are up to 3h long
  * manually key in the showtimes in 24h format (to separate the genres)
  *                                              eg. horror only shown at night
@@ -29,20 +30,25 @@ public class movieApp {
             switch(choice) {
                 case 1:
                     //show preview movies
+                    cinema.showMovies(1);
+                    System.out.println();
                     break;
                 case 2:
                     //show NOW-SHOWING movies
-                    cinema.showMovies(1);
+                    cinema.showMovies(2);
+                    System.out.println();
                     break;
                 case 3:
                     //show COMING_SOON movies
-                    cinema.showMovies(2);
+                    cinema.showMovies(3);
+                    System.out.println();
                     break;
                 case 4:
                     //show all
                     cinema.showMovies(1);
                     cinema.showMovies(2);
                     cinema.showMovies(3);
+                    System.out.println();
                     break;
                 case 5:
                     //edit movie listing
@@ -52,20 +58,23 @@ public class movieApp {
                                             "       (1) Create\n"+
                                             "       (2) Update\n"+
                                             "       (3) Remove\n"+
-                                            "       (4) Quit editing.");
+                                            "       (4) Add movie review\n"+
+                                            "       (5) Quit editing.");
                         a = sc.nextInt();
+                        sc.nextLine();
 
-                        if (a==4) {
+                        if (a==5) {
                             System.out.println("Returning to main application..");
                             a=9999;
                         }
-                        else if (a>0 && a<4) {
+                        else if (a>0 && a<5) {
                             System.out.println("Enter name of movie");
                             String name = sc.nextLine();
-                            if (a==1) {
+                            if (a==1) { //create
                                 System.out.println("Enter director's name: \n"+
                                                     "Enter cast: \n"+
                                                     "Enter synopsis: \n"+
+                                                    "Enter price\n"+
                                                     "Enter status: \n"+
                                                     "Enter movie type: \n"+
                                                     "    (1) 3D\n"+
@@ -76,16 +85,19 @@ public class movieApp {
                                 String dirName = sc.nextLine();
                                 String castName = sc.nextLine();
                                 String sypnosis = sc.nextLine();
+                                int Price = sc.nextInt();
                                 int statusCreate = sc.nextInt();
                                 int typeCreate = sc.nextInt();
-                                cinema.editMovie(a, name, choice, a);
+                                cinema.createMovie(name, dirName, castName, sypnosis,
+                                                    Price, statusCreate, typeCreate);
 
                             }
-                            if (a==2) {
+                            else if (a==2) { //update
                                 System.out.println("        What to update?\n"+
                                                     "           (1) Hall number\n"+
                                                     "           (2) Status\n"+
-                                                    "           (3) Price");
+                                                    "           (3) Price\n"+
+                                                    "           (4) Timings");
                                 int numUpdate = sc.nextInt();
                                 switch(numUpdate) {
                                     case 1:
@@ -103,10 +115,22 @@ public class movieApp {
                                         double changePr = sc.nextDouble();
                                         cinema.editMovie(a, name, numUpdate, changePr);
                                         break;
+                                    case 4:
+                                        do {
+                                            System.out.println("Enter timings: (Press -1 to exit)");
+                                            cinema.editMovie(a, null, sc.nextInt(), 0);
+                                        }while (sc.nextInt()!=-1);
+                                        System.out.println("Timings entered, exiting...");
+                                        break;
                                 }
                             }
-                            if (a==3) {
+                            else if (a==3) { //remove
                                 cinema.editMovie(a, name, 0, 0);
+                            }
+                            else { //a==4 add review
+                                System.out.println("Enter movie review: ");
+                                String review = sc.nextLine();
+                                cinema.editMovie(2, review, 4, 0);
                             }
                         }
 

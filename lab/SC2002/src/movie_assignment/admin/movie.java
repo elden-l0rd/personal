@@ -9,6 +9,7 @@ public class movie extends video {
     private int status;
     private double price;
     private String type;
+    private ArrayList<Integer> timings;
 
     //first add name,director,cast,synopsis,status,price,type
     //ratings initialised to 0
@@ -22,6 +23,14 @@ public class movie extends video {
         assignType(t);
         this.hall=0;
         this.reviews=null;
+        this.timings = new ArrayList<Integer>();
+    }
+
+    public void assignAbsClass(String n, String d, String c, String syp) {
+        super.assignName(n);
+        super.assignDir(d);
+        super.addCast(c);
+        super.assignSypnosis(syp);
     }
 
     @Override
@@ -112,6 +121,19 @@ public class movie extends video {
         this.ratings=0;
         this.reviews=null;
         this.type=null;
+    }
+
+    public void getTimings() {
+        if (this.timings.isEmpty()) {
+            System.out.println("No timings added!");
+        }
+        for (int i=0; i<this.timings.size(); i++) {
+            System.out.println(this.timings.get(i));
+        }
+    }
+
+    public void assignTimings(Integer n) {
+        this.timings.add(n);
     }
 
 }
