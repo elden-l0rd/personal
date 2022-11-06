@@ -9,10 +9,9 @@ public class KnapSack {
         KnapSack part_1 = new KnapSack();
         KnapSack part_2 = new KnapSack();
         int[] w2 = new int[] {5,6,8};
-        int[] p2 = new int[] {7,6,9};
         int n2 = w2.length;
         System.out.println("Recursive approach: \n"+"(1) "+part_1.knapsack(w,p,C,n)+"\n" +
-                            "(4) "+part_2.knapsack(w2,p2,C,n2));
+                            "(4) "+part_2.knapsack(w2,p,C,n2));
     }
 
     public int knapsack(int[] w, int[] p, int C, int n) {
