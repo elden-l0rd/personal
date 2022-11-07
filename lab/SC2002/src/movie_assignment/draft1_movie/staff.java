@@ -1,4 +1,4 @@
-package admin;
+package movie_assignment.draft1_movie;
 
 public class staff {
 	private String userName;

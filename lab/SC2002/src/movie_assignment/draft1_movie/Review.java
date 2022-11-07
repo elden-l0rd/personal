@@ -1,4 +1,4 @@
-package moblima;
+package movie_assignment.draft1_movie;
 
 public class Review {
 	private int score;

@@ -1,4 +1,4 @@
-package admin;
+package movie_assignment.draft1_movie;
 import java.util.Scanner;
 
 public class login {
