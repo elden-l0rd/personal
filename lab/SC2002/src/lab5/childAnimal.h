@@ -53,7 +53,7 @@ class Lion: public Mammal {
         string _owner;
     public:
         Lion(): Mammal() {
-            cout << "constructing Lion object" << Animal::getName() << endl;
+            cout << "constructing Lion object " << Animal::getName() << endl;
         }
         Lion(string n, COLOR c, string o): Mammal(n,c) {
             _owner = o;
@@ -66,6 +66,6 @@ class Lion: public Mammal {
         void eat();
 
         ~Lion() {
-            cout << "destructing Lion object" << Animal::getName() << endl;
+            cout << "destructing Lion object " << Animal::getName() << endl;
         }
 };
