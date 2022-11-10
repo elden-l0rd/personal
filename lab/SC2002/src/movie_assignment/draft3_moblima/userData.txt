@@ -1,0 +1,6 @@
+admin admin true
+adminn adminn false
+adminnn adminnn true
+r r true
+e e false
+w w false
