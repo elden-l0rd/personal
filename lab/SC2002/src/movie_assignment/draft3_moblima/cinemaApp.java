@@ -103,6 +103,11 @@ public class cinemaApp {
             }
         }
     }
+    
+    public void printReviews(String name) {
+        int index = searchMovie(name);
+        movieCata[index].getReviews();
+    }
 
     //edit movie listing
     public void editMovie(int option, String name, int choice2, double newNum) {
@@ -112,14 +117,9 @@ public class cinemaApp {
             return;
         }
         switch(option) {
-             case 1: //create
-//                 for (int slot=0; slot<totalMovies; slot++) { //find empty movie[slot]
-//                     if (movieCata[slot].getRatings()==0) {
-//                         movieCata[slot].assignName(name);
-//                         break;
-//                     }
-//                 }
-                 break;
+             case 1: //delete review
+                movieCata[index].removeMovie(choice2);
+                break;
             case 2: //edit
                 switch(choice2) {
                     case 1:

@@ -210,16 +210,10 @@ public class UI {
 	                            }
 	                            else { //a==4 edit reviews
 									System.out.print("Displaying all reviews for movie: ");
-									int index = c.searchMovie(name);
-									c.printReviews();
-
-
-
-									c.assignStats(movie, rating, review);
-									c.updateOverallRating(movie);
-
-	                                c.editMovie(2, ??change!review, 4, 0);
-	                                
+									c.printReviews(name);
+									System.out.println("Which review to delete?");
+									int x = sc.nextInt();
+									c.editMovie(1, name, x, 0);
 	                            }
 	                        }
 

@@ -52,12 +52,19 @@ public class Movie extends video {
     }
 
     public void addReviews(ArrayList<Review> review, int average) {
-		this.reviews = review;
+		this.reviews.add(review);
 		this.rating = average;
     }
 
-    public ArrayList<Review> getReviews() {
-        return this.reviews;
+    public void getReviews() {
+        for (int i=0; i<(this.reviews.size()); i++) {
+            System.out.println((i+1)+". "+ this.reviews.get(i)+"\n");
+        }
+    }
+
+    public void removeReviews(int x) {
+        this.reviews.remove(x);
+        System.out.println("Review successfully deleted!");
     }
 
     public void assignRatingGuide(int rat) {
