@@ -12,6 +12,7 @@ public class UI {
 	Scanner sc = new Scanner(System.in);
 	loginApp l = new loginApp();
     cinemaApp c = new cinemaApp();
+    SeatApp [] s;
 	ArrayList<Movie> MovieList = new ArrayList<Movie>();
 	ArrayList<MovieSlot> MovieSlotList = new ArrayList<MovieSlot>();
 	ArrayList<Customer> CustomerList = new ArrayList<Customer>();
@@ -119,7 +120,7 @@ public class UI {
 	                    c.showMovies(3);
 	                    System.out.println();
 	                    break;
-	                case 6:
+					case 6:
 	                    //edit movie listing
 	                    int a;
 	                    do{
@@ -128,15 +129,16 @@ public class UI {
 	                                            "   (2) Update\n"+
 	                                            "   (3) Remove\n"+
 	                                            "   (4) Add movie review\n"+
-	                                            "   (5) Quit editing");
+												"	(5) Choose what user views\n"+
+	                                            "   (6) Quit editing");
 	                        a = sc.nextInt();
 	                        sc.nextLine();
 	                        
-	                        if (a==5) {
+	                        if (a==6) {
 	                            System.out.println("Returning to main application..");
 	                            a=9999;
 	                        }
-	                        else if (a>0 && a<5) {
+	                        else if (a>0 && a<6) {
 	                            System.out.print("Enter name of movie: ");
 	                            String name = sc.nextLine();
 	                            if (a==1) { //create
@@ -171,10 +173,10 @@ public class UI {
                                  	int rating_guide = sc.nextInt();
 									System.out.println("Enter movie language: ");
 									String lang = sc.next();
-									System.out.println("Enter movie runtime(in minutes): ");
+									System.out.println("Enter movie runtime(in minutes: ");
 									int rt = sc.nextInt();
                                  	c.createMovie(name, dirName, castName, sypnosis,
-                                                     Price, statusCreate, typeCreate,//rating_guide,
+                                                     Price, statusCreate, typeCreate,// rating_guide,
                                                      lang, rt);
                                     Movie testmov= new Movie(name,dirName,castName,sypnosis,statusCreate,Price,typeCreate,0,rt);
                                     MovieList.add(testmov);
@@ -198,8 +200,8 @@ public class UI {
 																"(2) NOW SHOWING\n"+
 																"(3) COMING SOON\n"+
 																"(4) END OF SHOWING\n");
-	                                        int changeStat = sc.nextInt();
-	                                        c.editMovie(a, name, numUpdate, (double)changeStat);
+											int changeStat = sc.nextInt();
+											c.editMovie(a, name, numUpdate, (double)changeStat);
 	                                        break;
 	                                    case 3:
 	                                        System.out.println("Enter new price:");
@@ -218,13 +220,21 @@ public class UI {
 	                            else if (a==3) { //remove
 	                                c.editMovie(a, name, 0, 0);
 	                            }
-	                            else { //a==4 edit reviews
+	                            else if (a==4) { //edit reviews
 									System.out.print("Displaying all reviews for movie: ");
 									c.printReviews(name);
 									System.out.println("Which review to delete?");
 									int x = sc.nextInt();
 									c.editMovie(1, name, x, 0);
 	                            }
+								else { //choose what user can sort by
+									System.out.println("Allow user to sort by:\n"+
+															"	(1) totalSales\n"+
+															"	(2) reviews\n"+
+															"	(3) Default: both");
+									choice3 = sc.nextInt();
+									c.editUserView(choice3);
+								}
 	                        }
 
 	                        else {
@@ -286,13 +296,16 @@ public class UI {
 		        c.displayMovieDetail(search1, MovieList);
 		        break;
 		      case 3:
-		        System.out.println("Enter movie name: ");
-		        c.showMovies(1);
-		        c.showMovies(2);
-		        String search2 = sc.nextLine();
-		        int index = c.searchMovie(search2);
-		        //printseats
-		        break;
+		    	  System.out.println("Enter movie name: ");
+					c.showMovies(1);
+					c.showMovies(2);
+					String search2 = sc.nextLine();
+					int index = c.searchMovie(search2);
+					System.out.println("Please select a time slot: ");
+					MovieList.get(index).printTimings();
+					int time = sc.nextInt();
+					s[time-1].printSeats();
+					break;
 			case 4:
 				if(!userAcct) {
 					int login =this.login();
@@ -387,7 +400,7 @@ public class UI {
 			}
 		}
 		
-		Ticket t = Ticket.BookTicket(MovieList, MovieSlotList, tickettype);
+		Ticket t = Ticket.BookTicket(c.createArrayList(), MovieSlotList, tickettype);
 		newuser.getBookingHistory().add(t);
 	}
 
@@ -441,4 +454,40 @@ public class UI {
 			}
 		}
 	}
-}
+	public void bookSeat() {
+		System.out.println("Enter movie name: ");
+		c.showMovies(1);
+		c.showMovies(2);
+		String search3 = sc.next();
+		int index1 = c.searchMovie(search3);
+		System.out.println("Please select a time slot: ");
+		MovieList.get(index1-1).printTimings();
+		int time1 = sc.nextInt();
+		((SeatApp) MovieList.get(index1-1).s[time1]).printSeats();
+		System.out.println("Please select a row (A-J): ");
+		char row = sc.next().charAt(0);
+		int row1;
+		switch (row) {
+			case 'A': case 'a': row1 = 9; break;
+			case 'B': case 'b': row1 = 8; break;
+			case 'C': case 'c': row1 = 7; break;
+			case 'D': case 'd': row1 = 6; break;
+			case 'E': case 'e': row1 = 5; break;
+			case 'F': case 'f': row1 = 4; break;
+			case 'G': case 'g': row1 = 3; break;
+			case 'H': case 'h': row1 = 2; break;
+			case 'I': case 'i': row1 = 1; break;
+			case 'J': case 'j': row1 = 0; break;
+			default: row1 = -1;
+		System.out.println("Please select a column (1-16): ");
+		int col = sc.nextInt();
+//		while (true) {
+//			if (!((SeatApp) MovieList.get(index1-1).s[time1]).checkOccupied(row1, col)) break;
+//			else System.out.println("Seat(s) unavailable. Please select again!");
+//		}
+//		((SeatApp) MovieList.get(index1-1).s[time1]).bookSeat(row1, col);
+	}
+		
+	}
+		
+}	

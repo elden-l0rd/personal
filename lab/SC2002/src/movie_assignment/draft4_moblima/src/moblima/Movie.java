@@ -9,11 +9,13 @@ public class Movie extends video {
     private int status;
     private double price;
     private String type;
-    private ArrayList<Integer> timings;
+    private SeatApp[] seat;
+    private int[] timings;    
     private int salesNumber;
     private String language;
     private int runtime;
     private double rating;
+	public Object[] s;
     
     //first add name,director,cast,synopsis,status,price,type
     //ratings initialised to 0
@@ -27,11 +29,15 @@ public class Movie extends video {
         assignType(t);
         this.hall=0;
         this.reviews=new ArrayList<Review>();
-        this.timings = new ArrayList<Integer>();
+        this.timings = new int[5];
+        for (int x=0; x<5; x++) timings[x] = 9 + (x*3); //movie every 3h interval starting from 0900h
+        this.seat = new SeatApp[5];
+        for (int y=0; y<5; y++) seat[y] = new SeatApp();
         this.salesNumber = sales;
         this.language = null; //default
         this.runtime = rt;
     }
+
 
     public Movie() {
     	super();
@@ -120,6 +126,42 @@ public class Movie extends video {
         this.status = num;
     }
 
+    public String printStatus(int num) {
+    	switch(num) {
+    	case 0:
+    		return "No movie stored";
+    	case 1:
+    		return "Preview";
+    	case 2:
+    		return "Now Showing";
+    	case 3:
+    		return "Coming Soon";
+    	case 4:
+    		return "End of Showing";
+    	default:
+    		return "Movie not found";
+    	}
+    }
+    
+    public String printRatingGuide(int num) {
+    	switch(num) {
+    	case 1:
+    		return "G";
+    	case 2:
+    		return "PG";
+    	case 3:
+    		return "PG13";
+    	case 4:
+    		return "NC16";
+    	case 5:
+    		return "M18";
+    	case 6:
+    		return "R21";
+    	default:
+    		return "Movie not found";
+    	}
+    }
+    
     public int getStatus() {
         return this.status;
     }
@@ -168,31 +210,13 @@ public class Movie extends video {
         this.type=null;
     }
     
-    public void getTimings() {
-        if (this.timings.isEmpty()) {
-            System.out.println("No timings added!");
-        }
-        for (int i=0; i<this.timings.size(); i++) {
-            System.out.println(this.timings.get(i));
-        }
+    public void printTimings() {
+    	System.out.println("[1] 9am");
+    	System.out.println("[2] 12pm");
+    	System.out.println("[3] 3pm");
+    	System.out.println("[4] 6pm");
+    	System.out.println("[5] 9pm");
     }
-
-    public void assignTimings(Integer n) {
-        this.timings.add(n);
-    }
-    
-//	private double average()
-//	{
-//		if (reviews.size() == 1)
-//			return 0;
-//		else
-//		{
-//			double total = 0;
-//			for (int i = 0; i < reviews.size(); i++)
-//				total += reviews.get(i).getScore();
-//			return total / reviews.size();
-//		}
-//	}
     
 	public int getSalesNumber() {
         return salesNumber;

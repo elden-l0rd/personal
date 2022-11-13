@@ -1,6 +1,7 @@
 package moblima;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,6 +13,7 @@ public class cinemaApp implements java.io.Serializable {
     private static final int numCinemaHall = 10;
     private static final int totalMovies = 15;
     private Movie[] movieCata; //movie catalogue
+    private int userView=3;
     
     public cinemaApp() {
         movieCata = new Movie[15];
@@ -63,9 +65,9 @@ public class cinemaApp implements java.io.Serializable {
     public void showMovies(int a) {
         boolean check=false;
         if (a==1) {
-            System.out.println("In PREVIEW:");
+            System.out.println("\nIn PREVIEW:");
             for (int i=0; i<totalMovies; i++) {
-                if (movieCata[i].getStatus()==1 || movieCata[i].getStatus()==2) {
+                if (movieCata[i].getStatus()==1) {
                     check=true;
                     System.out.println(movieCata[i].getName());
                 }
@@ -75,7 +77,7 @@ public class cinemaApp implements java.io.Serializable {
             }
         }
         else if (a==2) {
-            System.out.println("NOW SHOWING:");
+            System.out.println("\nNOW SHOWING:");
             for (int i=0; i<totalMovies; i++) {
                 if (movieCata[i].getStatus()==2) {
                     check=true;
@@ -87,7 +89,7 @@ public class cinemaApp implements java.io.Serializable {
             }
         }
         else if (a==3) {
-            System.out.println("COMING SOON:");
+            System.out.println("\nCOMING SOON:");
             for (int i=0; i<totalMovies; i++) {
                 if (movieCata[i].getStatus()==3) {
                     check=true;
@@ -99,7 +101,7 @@ public class cinemaApp implements java.io.Serializable {
             }
         }
         else { //a==4
-            System.out.println("END OF SHOWING:");
+            System.out.println("\nEND OF SHOWING:");
             for (int i=0; i<totalMovies; i++) {
                 if (movieCata[i].getStatus()==4) {
                     check=true;
@@ -115,6 +117,13 @@ public class cinemaApp implements java.io.Serializable {
     public void printReviews(String name) {
         int index = searchMovie(name);
         movieCata[index].getReviews();
+    }
+
+    public void editUserView(int v) {
+        this.userView=v;
+    }
+    public int getUserView() {
+        return this.userView;
     }
     
     //edit movie listing
@@ -147,15 +156,15 @@ public class cinemaApp implements java.io.Serializable {
             case 3: //remove
                 movieCata[index].removeMovie();
                 break;
-            case 4:
-                Integer tim = (Integer)choice2;
-                movieCata[index].assignTimings(tim);
-                break;
+//            case 4:
+//                Integer tim = (Integer)choice2;
+//                movieCata[index].assignTimings(tim);
+//                break;
         }
     }
 
     public void createMovie(String name, String dirname, String castName, String syp,
-                                            double P, int S, int T, String lang, int rt)
+                                            double P, int S, int T, String lang, int rt, int rg)
     {
         int index=0, i;
         for (i=0; i<totalMovies; i++) {
@@ -175,6 +184,7 @@ public class cinemaApp implements java.io.Serializable {
         movieCata[index].assignRatingGuide(0);
         movieCata[index].assignLanguage(lang);
         movieCata[index].assignRuntime(rt);
+        movieCata[index].assignRatingGuide(rg);
         System.out.println("Movie added!\n");
        
     }
@@ -203,31 +213,38 @@ public class cinemaApp implements java.io.Serializable {
             }
         }
         if(i!=totalMovies) {
-	        System.out.println("Movie Title: " + movieCata[i].getName());
-	        System.out.println("Showing status: " + movieCata[i].getStatus());
+	        System.out.println("\nMovie Title: " + movieCata[i].getName());
+	        System.out.println("Showing status: " + movieCata[i].printStatus(movieCata[i].getStatus()));
 	        System.out.println("Director: " + movieCata[i].getDirector());
-//	        System.out.println("Rating: " + movieCata[i].getOverallRating());
 	        System.out.println("Cast: " + movieCata[i].getCast());
-//	        System.out.printf("Score: %.2f\n", movieCata[i].getOverallRating());
 	        System.out.println("Sypnosis: " + movieCata[i].getSynopsis());
+	        System.out.println("Genre: " + movieCata[i].getType());
+	        System.out.println("Rating Guide: " + movieCata[i].printRatingGuide(movieCata[i].getRatingGuides()));
             System.out.println("Language: " + movieCata[i].getLang());
-            System.out.println("Runtime(in minutes): " + movieCata[i].getRuntime());
+            System.out.println("Runtime(in minutes): " + movieCata[i].getRuntime() + "\n");
+//	        System.out.printf("Score: %.2f\n", movieCata[i].getOverallRating());
+
         }else {
             System.out.println("Movie not found!");
         }
 
     }
 
-    public ArrayList<Movie> displayTopRate(ArrayList<Movie> movies) {
+    public ArrayList<Movie> displayTopRate(ArrayList<Movie> movies) throws IOException {
         ArrayList<Movie> sortedMovies;
         sortedMovies = SortTop5.sortByScore(movies);
         System.out.println(sortedMovies);
         System.out.println("All movies sorted by rating");
-        for (int i = 0; i < totalMovies; i++) {
+//        for (int i = 0; i < totalMovies; i++) {
+        for (int i = 0; i < 5; i++) {
         	if(movieCata[i].getName()!=null ) {
 	            System.out.println("No." + (i + 1));
 	            System.out.println(movieCata[i].getName());
-//	            System.out.printf("Score: %.2f\n", movieCata[i].getOverallRating());
+	            try {
+	            	this.updateOverallRating(movieCata[i].getName());
+	            }
+	            catch (FileNotFoundException ex) {}
+	            System.out.printf("Score: %.2f\n", movieCata[i].getOverallRating());
 	            System.out.println(" ");
         	}
         }
@@ -238,7 +255,8 @@ public class cinemaApp implements java.io.Serializable {
         ArrayList<Movie> sortedMovies;
         sortedMovies = SortTop5.sortBySale(movies);
         System.out.println("All movies sorted by ticket sales");
-        for (int i = 0; i < totalMovies; i++) {
+//        for (int i = 0; i < totalMovies; i++) {
+        for (int i = 0; i < 5; i++) {
         	if(movieCata[i].getName()!=null ) {
 	            System.out.println("No." + (i + 1));
 	            System.out.println(movieCata[i].getName());
@@ -278,18 +296,17 @@ public class cinemaApp implements java.io.Serializable {
     public void saveMovie() throws IOException {
     	BufferedWriter writer = new BufferedWriter(new FileWriter("movieData.txt", false));
         for (int i = 0; i < totalMovies; i++) {
-	    writer.write(movieCata[i].getName()+ "\n" + //1
-	    			 movieCata[i].getDirector() + "\n" + //2
-	    			 movieCata[i].getCast() + "\n" + //3
-	    			 movieCata[i].getSynopsis() +"\n" + //4
-	    			 movieCata[i].getPrice() + "\n" + //5
-	    			 movieCata[i].getStatus() + "\n" + //6
-	    			 movieCata[i].getType() + "\n" + //7
-	    			 movieCata[i].getRatingGuides() + "\n" +//8
-	    			 movieCata[i].getLang() +"\n" + //9
-	    			 movieCata[i].getRuntime() + "\n"+ //10
-	    			 movieCata[i].getHallNumber() + "\n" +// hall number
-//	    			 movieCata[i].getTimings() + "\n" +
+	    writer.write(movieCata[i].getName()+ "\n" +
+	    			 movieCata[i].getDirector() + "\n" +
+	    			 movieCata[i].getCast() + "\n" +
+	    			 movieCata[i].getSynopsis() +"\n" +
+	    			 movieCata[i].getPrice() + "\n" +
+	    			 movieCata[i].getStatus() + "\n" +
+	    			 movieCata[i].getType() + "\n" +
+	    			 movieCata[i].getRatingGuides() + "\n" +
+	    			 movieCata[i].getLang() +"\n" + 
+	    			 movieCata[i].getRuntime() + "\n"+ 
+	    			 movieCata[i].getHallNumber() + "\n" +
 	    			 "--------\n"); 
         }
 	    writer.newLine();
@@ -306,9 +323,7 @@ public class cinemaApp implements java.io.Serializable {
 	    	b=br.readLine();
 	    	c=br.readLine();
 	    	d=br.readLine();
-//	    	System.out.println(a);
 	    	if(a.equals("null")) {
-//	    		System.out.println("ok");
 	    		flag=1;}
 	    	if(flag==0) {
 		    	movieCata[j].assignAbsClass(a, b, c, d);
@@ -334,9 +349,18 @@ public class cinemaApp implements java.io.Serializable {
 	    	
 	    	
 	    }
-//        System.out.println(movieCata[0].getName());
 	    br.close();
     }
+    
+    public ArrayList<Movies> createArrayList() {
+        ArrayList<Movies> movies = new ArrayList<Movies>();
+    	for(int i=0;i<totalMovies; i++) {
+    		Movies temp = new Movies(movieCata[i].getName(),movieCata[i].getStatus());
+    		movies.add(temp);
+    	}
+    	return movies;
+    }
+
 
     
 }

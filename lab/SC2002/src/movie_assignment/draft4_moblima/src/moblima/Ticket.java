@@ -124,7 +124,7 @@ public class Ticket {
 		System.out.println("THANK YOU, PLEASE COME AGAIN\n" + "Prices Inclusive of 7% GST\n");
 	}
 	
-	public static Ticket BookTicket(ArrayList<Movie> movies, ArrayList<MovieSlot> slots, int age) {
+	public static Ticket BookTicket(ArrayList<Movies> movies, ArrayList<MovieSlot> slots, int age) {
 
 		Cineplex selectedCineplex = null;
 		boolean available = false;
@@ -132,7 +132,7 @@ public class Ticket {
 		System.out.println("----------TICKET BOOKING----------");
 		//CHOOSE MOVIE
 		System.out.println("Available movies are listed below");
-		for (Movie m : movies) {
+		for (Movies m : movies) {
 			if (m.getStatus()==1 || m.getStatus()==2) {
 				System.out.println(m.getName());
 				available = true;
@@ -147,9 +147,9 @@ public class Ticket {
 		while (find != true) {
 			System.out.println("Enter Movie title: ");
 			String movieName = sc.nextLine();
-			for (Movie m : movies) {
+			for (Movies m : movies) {
 				if (m.getName().equals(movieName)) {
-					chosenmovie = m;
+//					chosenmovie = m;
 					String sel = "";
 					sel = m.getName();
 					find = true;
