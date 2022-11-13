@@ -126,8 +126,7 @@ public class Ticket {
 	
 	public static Ticket BookTicket(ArrayList<Movie> movies, ArrayList<MovieSlot> slots, int age) {
 
-		//String sel = "";
-		Cineplex selectedCineplex = new Cineplex();
+		Cineplex selectedCineplex = null;
 		boolean available = false;
 		Movie chosenmovie = new Movie();
 		System.out.println("----------TICKET BOOKING----------");
@@ -151,7 +150,8 @@ public class Ticket {
 			for (Movie m : movies) {
 				if (m.getName().equals(movieName)) {
 					chosenmovie = m;
-					String sel = m.getName();
+					String sel = "";
+					sel = m.getName();
 					find = true;
 					break;
 				}

@@ -72,6 +72,10 @@ public class Movie extends video {
     public void assignRatingGuide(int rat) {
         this.rating_guide=rat;
     }
+    
+    public int getRatingGuides() {
+    	return this.rating_guide;
+    }
 
     public void getRatingGuide() {
         int r=this.rating_guide;
@@ -126,6 +130,10 @@ public class Movie extends video {
 
     public double getPrice() {
         return this.price;
+    }
+    
+    public void assignTypes(String t) {
+    	this.type = t;
     }
     
     public void assignType(int t) {

@@ -75,7 +75,7 @@ public class UI {
 			return 0;
 	}
 	
-	public void admin() {
+	public void admin() throws IOException {
 		 int choice2;
 			System.out.println("\n|=========================================|");
 			System.out.println("|===============|Admin Mode|==============|");
@@ -89,28 +89,7 @@ public class UI {
 	                            "7. Log out\n");
 	        do {
 	            System.out.println("Select action: ");
-	            choice2 = sc.nextInt();
-	            try
-	            {   
-	                FileInputStream file = new FileInputStream("movieData.dat");
-	                ObjectInputStream in = new ObjectInputStream(file);
-	                c = (cinemaApp)in.readObject();
-	                  
-	                in.close();
-	                file.close();
-	                  
-	                System.out.println("Object has been deserialized ");
-	            }
-	              
-	            catch(IOException ex)
-	            {
-	                System.out.println("IOException is caught");
-	            }
-	              
-	            catch(ClassNotFoundException ex)
-	            {
-	                System.out.println("ClassNotFoundException is caught");
-	            }
+	            choice2 = sc.nextInt();       
 	            switch(choice2) {
 	           
 	                case 1:
@@ -192,10 +171,10 @@ public class UI {
                                  	int rating_guide = sc.nextInt();
 									System.out.println("Enter movie language: ");
 									String lang = sc.next();
-									System.out.println("Enter movie runtime(in minutes: ");
+									System.out.println("Enter movie runtime(in minutes): ");
 									int rt = sc.nextInt();
                                  	c.createMovie(name, dirName, castName, sypnosis,
-                                                     Price, statusCreate, typeCreate,// rating_guide,
+                                                     Price, statusCreate, typeCreate,//rating_guide,
                                                      lang, rt);
                                     Movie testmov= new Movie(name,dirName,castName,sypnosis,statusCreate,Price,typeCreate,0,rt);
                                     MovieList.add(testmov);
@@ -256,6 +235,7 @@ public class UI {
 	                    break;
 	                
 	                case 7:
+	                	c.saveMovie();
 	                    System.out.println("Logged out successfully!");
 	                    break;
 	                default:
@@ -290,10 +270,11 @@ public class UI {
 		do {
 		System.out.println("Select action: ");
 		choice2=sc.nextInt();
+		sc.nextLine(); 
 		switch(choice2) {
 			case 1:
 		        System.out.println("Enter movie name: ");
-		        String search = sc.next();
+		        String search = sc.nextLine();
 		        c.displayMovieDetail(search, MovieList);
 		        break;
 		      case 2:
@@ -301,14 +282,14 @@ public class UI {
 		        c.showMovies(1);
 		        c.showMovies(2);
 		        c.showMovies(3);
-		        String search1 = sc.next();
+		        String search1 = sc.nextLine();
 		        c.displayMovieDetail(search1, MovieList);
 		        break;
 		      case 3:
 		        System.out.println("Enter movie name: ");
 		        c.showMovies(1);
 		        c.showMovies(2);
-		        String search2 = sc.next();
+		        String search2 = sc.nextLine();
 		        int index = c.searchMovie(search2);
 		        //printseats
 		        break;
@@ -345,19 +326,21 @@ public class UI {
 		          break;
 		    case 8:
 		    	System.out.print("Enter a movie name: ");
-		    	String movie = sc.next();
+		    	String movie = sc.nextLine();
 		    	if(c.searchMovie(movie)==-1)
 		    		System.out.println("Movie not found!");
 		    	else {
 		    		System.out.print("Enter a rating: ");
 		    		int rating = sc.nextInt();
+		    		sc.nextLine(); 
 		    		System.out.print("Enter a review: ");
-		    		String review = sc.next();
+		    		String review = sc.nextLine();
 		    		c.assignStats(movie, rating, review);
 		    		c.updateOverallRating(movie);
 		    		System.out.println("Thank you for your review and rating!");
 		    		System.out.printf("Rating: %.2f", c.printRating(movie));
-    		
+		    		System.out.println("\n");
+
 		    	}
 			case 9:
 				if(userAcct)

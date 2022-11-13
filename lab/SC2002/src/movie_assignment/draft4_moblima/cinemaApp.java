@@ -18,6 +18,12 @@ public class cinemaApp implements java.io.Serializable {
         for (int i=0; i<15; i++) {
             movieCata[i] = new Movie(null,null,null,null,0,0,0,0,0); // WIP
         }
+        try {
+			this.loadMovie();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     //methods
@@ -166,32 +172,11 @@ public class cinemaApp implements java.io.Serializable {
         movieCata[index].assignPrice(P);
         movieCata[index].assignStatus(S);
         movieCata[index].assignType(T);
-        //movieCata[index].assignRatings(0);
+        movieCata[index].assignRatingGuide(0);
         movieCata[index].assignLanguage(lang);
         movieCata[index].assignRuntime(rt);
         System.out.println("Movie added!\n");
        
-        try
-        {   
-            //Saving of object in a file
-            FileOutputStream file = new FileOutputStream("movieData.txt");
-            ObjectOutputStream out = new ObjectOutputStream(file);
-              
-            // Method for serialization of object
-        
-            out.writeObject(movieCata);
-            
-            out.close();
-            file.close();
-              
-            System.out.println("Object has been serialized");
-  
-        }
-          
-        catch(IOException ex)
-        {
-            System.out.println("IOException is caught");
-        }
     }
     
     //search for a movie index
@@ -288,6 +273,69 @@ public class cinemaApp implements java.io.Serializable {
     
     public double printRating(String movie) throws IOException{
     	return movieCata[this.searchMovie(movie)].getOverallRating();
+    }
+
+    public void saveMovie() throws IOException {
+    	BufferedWriter writer = new BufferedWriter(new FileWriter("movieData.txt", false));
+        for (int i = 0; i < totalMovies; i++) {
+	    writer.write(movieCata[i].getName()+ "\n" + //1
+	    			 movieCata[i].getDirector() + "\n" + //2
+	    			 movieCata[i].getCast() + "\n" + //3
+	    			 movieCata[i].getSynopsis() +"\n" + //4
+	    			 movieCata[i].getPrice() + "\n" + //5
+	    			 movieCata[i].getStatus() + "\n" + //6
+	    			 movieCata[i].getType() + "\n" + //7
+	    			 movieCata[i].getRatingGuides() + "\n" +//8
+	    			 movieCata[i].getLang() +"\n" + //9
+	    			 movieCata[i].getRuntime() + "\n"+ //10
+	    			 movieCata[i].getHallNumber() + "\n" +// hall number
+//	    			 movieCata[i].getTimings() + "\n" +
+	    			 "--------\n"); 
+        }
+	    writer.newLine();
+	    writer.close();
+    }
+    
+    public void loadMovie() throws IOException {
+    	FileReader fr = new FileReader("movieData.txt");
+		BufferedReader br = new BufferedReader(fr);
+	    String line,a,b,c,d;
+	    int flag = 0;
+        for (int j = 0; j < totalMovies; j++) {
+	    	a=br.readLine();
+	    	b=br.readLine();
+	    	c=br.readLine();
+	    	d=br.readLine();
+//	    	System.out.println(a);
+	    	if(a.equals("null")) {
+//	    		System.out.println("ok");
+	    		flag=1;}
+	    	if(flag==0) {
+		    	movieCata[j].assignAbsClass(a, b, c, d);
+		    	movieCata[j].assignPrice(Double.valueOf(br.readLine()));
+		    	movieCata[j].assignStatus(Integer.valueOf(br.readLine()));
+		    	movieCata[j].assignTypes(br.readLine());
+		    	movieCata[j].assignRatingGuide(Integer.valueOf(br.readLine()));
+		    	movieCata[j].assignLanguage(br.readLine());
+		    	movieCata[j].assignRuntime(Integer.valueOf(br.readLine()));
+		    	movieCata[j].assignHallNumber(Integer.valueOf(br.readLine()));
+		    	br.readLine();
+	    	}
+	    	else {
+	    		movieCata[j].assignAbsClass(null, null, null, null);
+		    	movieCata[j].assignPrice(0);
+		    	movieCata[j].assignStatus(0);
+		    	movieCata[j].assignTypes(null);
+		    	movieCata[j].assignRatingGuide(0);
+		    	movieCata[j].assignLanguage(null);
+		    	movieCata[j].assignRuntime(0);
+		    	movieCata[j].assignHallNumber(0);
+	    	}
+	    	
+	    	
+	    }
+//        System.out.println(movieCata[0].getName());
+	    br.close();
     }
 
     
