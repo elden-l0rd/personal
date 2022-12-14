@@ -1,0 +1,79 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch MoblimaApp",
+            "request": "launch",
+            "mainClass": "movie_assignment.draft1_movie.MoblimaApp",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch test",
+            "request": "launch",
+            "mainClass": "lab.SC2001.labProject3.test",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch KnapSack",
+            "request": "launch",
+            "mainClass": "lab.SC2001.labProject3.KnapSack",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch main",
+            "request": "launch",
+            "mainClass": "lab.SC2001.labProject3.main",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch test",
+            "request": "launch",
+            "mainClass": "movie_assignment.admin.test",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch Lab2",
+            "request": "launch",
+            "mainClass": "lab2.Lab2",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "type": "java",
+            "name": "Launch movieApp",
+            "request": "launch",
+            "mainClass": "movie_assignment.admin.movieApp",
+            "projectName": "personal_44da2294"
+        },
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "enter program name, for example ${workspaceFolder}/a.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "C/C++: g++ build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: g++ build active file"
+        }
+    ],
+    "version": "2.0.0"
+}

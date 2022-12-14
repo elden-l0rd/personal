@@ -1,0 +1,5 @@
+admin admin123 true
+staff admin123 true
+staff1 admin123 true
+user1 user1 false
+user user false
